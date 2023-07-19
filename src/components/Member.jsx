@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
-
+import { setCurrentUser, remove } from "../store/index.js";
+import DeleteModal from "./DeleteModal.jsx";
+import { createPortal } from "react-dom";
 const Wrapper = styled.div`
   background: linear-gradient(200deg, #20325d, #0d1a37);
   border-radius: 10px;
@@ -11,6 +14,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   gap: 20px;
   padding: 10px;
+  overflow: hidden;
 `;
 
 const ImageWrapper = styled.div`
@@ -68,13 +72,13 @@ const Line = styled.div`
 `;
 
 const CardFooter = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    & p:first-child{
-      color: #8291b6;
-    }
-`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  & p:first-child {
+    color: #8291b6;
+  }
+`;
 const FooterIconWrapper = styled.div`
   cursor: pointer;
   background-color: #2c3c62;
@@ -86,54 +90,67 @@ const FooterIconWrapper = styled.div`
   font-size: 18px;
   border-radius: 4px;
 
-  &:hover{
+  &:hover {
     background-color: #2f477e;
   }
+`;
 
-`
+function Member({ delay = 0, user }) {
+  const storeDispatch = useDispatch();
+
+  const [isDelete, setIsDelete] = useState(false);
 
 
-function Member({ delay = 0 }) {
+  function handleRemoveUser() {
+    storeDispatch(remove({id:user.id}))
+  }
+
+  function handleClickDelete() {
+    setIsDelete((s) => !s);
+  }
+
   return (
     <Wrapper
       as={motion.div}
       animate={{ marginTop: 0, opacity: 1 }}
       transition={{ duration: 0.5, delay: delay }}
     >
+      {isDelete && createPortal(<DeleteModal onDelete={handleRemoveUser} setIsDelete={setIsDelete} user={user} />, document.body)}
+
       <CardHeader>
         <ImageWrapper>
-          {/* <i className="bi bi-person-bounding-box"></i> */}
-          <Image src="./images/user3.jpg" />
+          {user.image === "" ? (
+            <i className="bi bi-person-bounding-box"></i>
+          ) : (
+            <Image src={user.image} />
+          )}
         </ImageWrapper>
 
         <TextWrapper>
-          <p>Sina Kamrava</p>
-          <p>09216343118</p>
+          <p>
+            {user.userName} {user.userLastName}
+          </p>
+          <p>{user.phone}</p>
         </TextWrapper>
       </CardHeader>
 
       <Email>
         <i className="bi bi-envelope-paper-fill"></i>
-        <p>sinakamrava3118@gmail.com</p>
+        <p>{user.email}</p>
       </Email>
       <Line></Line>
 
-
       <CardFooter>
-        <p>Coworker</p>
+        <p>{user.related}</p>
         <span className="flex1"></span>
 
-        <FooterIconWrapper>
-        <i className="bi bi-journal-x"></i>
+        <FooterIconWrapper onClick={handleClickDelete}>
+          <i className="bi bi-journal-x"></i>
         </FooterIconWrapper>
-        <FooterIconWrapper>
-        <i className="bi bi-pencil-square"></i>
+        <FooterIconWrapper onClick={() => storeDispatch(setCurrentUser(user))}>
+          <i className="bi bi-pencil-square"></i>
         </FooterIconWrapper>
-        
-        
-
       </CardFooter>
-
     </Wrapper>
   );
 }

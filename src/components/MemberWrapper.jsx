@@ -1,6 +1,7 @@
 import React from 'react'
 import Member from './Member'
 import { styled } from 'styled-components'
+import { useSelector } from 'react-redux'
 
 const Wrapper = styled.div`
 margin-top: 100px;
@@ -18,19 +19,16 @@ overflow-y: scroll;
 
 
 function MemberWrapper() {
+
+  const users = useSelector(state => state.users.users);
+
   return (
     <Wrapper>
-      <Member/>
-      <Member delay={.1}/>
-      <Member delay={.2}/>
-      <Member delay={.3}/>
-      <Member delay={.4}/>
-      <Member delay={.5}/>
-      <Member delay={.6}/>
-      <Member delay={.7}/>
-      <Member delay={.8}/>
-      <Member delay={.9}/>
-      <Member delay={.1}/>
+
+      {users.map((user, idx) => <Member key={user.id} delay={`.${idx}`} user={user} />)}
+    
+    
+     
      
     </Wrapper>
   )

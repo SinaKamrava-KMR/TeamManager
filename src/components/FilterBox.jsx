@@ -48,11 +48,11 @@ function FilterBox() {
         <p>All</p>
       </Item>
       <Item  onClick={()=>handleClick(33)}>
-        <i class="bi bi-people-fill"></i>
+        <i className="bi bi-people-fill"></i>
         <p>Family</p>
       </Item>
       <Item  onClick={()=>handleClick(63.5)}>
-        <i class="bi bi-building-check"></i>
+        <i className="bi bi-building-check"></i>
         <p>coworker</p>
       </Item>
     </Wrapper>

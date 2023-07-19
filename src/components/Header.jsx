@@ -66,7 +66,7 @@ function Header() {
           <i className="bi bi-flag"></i>
         </IconWrapper>
         <IconWrapper>
-          <i class="bi bi-three-dots-vertical"></i>
+          <i className="bi bi-three-dots-vertical"></i>
         </IconWrapper>
       </Container>
 
