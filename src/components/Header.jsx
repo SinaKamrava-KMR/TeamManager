@@ -22,6 +22,13 @@ const Wrapper = styled.header`
     opacity: 0;
     margin-right: -200px;
   }
+  @media (max-width: 900px) {
+    & h1{
+      font-size: 30px;
+    }
+  }
+
+
 `;
 const IconWrapper = styled.div`
   border: 1px solid #33446d;

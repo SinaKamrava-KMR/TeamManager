@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 
 const Wrapper = styled.div`
-  max-width: 350px;
+  max-width: 360px;
   background-color: #040e24;
   border-radius: 30px;
   padding-block: 15px;
@@ -29,7 +29,7 @@ const Roll = styled.div`
   top: 5px;
   bottom: 5px;
   width: 35%;
-  background-color: #304676;
+  background-color: #253964;
   border-radius: 30px;
   transition: all 0.5s ease-in-out;
 `;

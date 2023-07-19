@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "styled-components";
 import Header from "../components/Header";
+import MemberWrapper from "../components/MemberWrapper";
 
 const Wrapper = styled.div`
   display: flex;
@@ -14,12 +15,16 @@ const Wrapper = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
+  @media (max-width: 900px) {
+    min-height: 700px;
+  }
 `;
 
 function Main() {
   return (
     <Wrapper>
       <Header />
+      <MemberWrapper />
     </Wrapper>
   );
 }
