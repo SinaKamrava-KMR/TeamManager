@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import store from "./store/index.js";
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
@@ -16,11 +17,7 @@ function App() {
               <Main />
             </Provider>
           }
-        >
-
-
-        </Route>
-
+        ></Route>
       </Routes>
     </BrowserRouter>
   );
