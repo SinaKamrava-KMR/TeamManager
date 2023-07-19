@@ -8,7 +8,7 @@ flex:1;
 display: grid;
 gap: 20px;
 grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
-grid-template-rows: repeat(10,minmax(250px,300px));
+grid-template-rows: repeat(10,minmax(220px,300px));
 overflow-y: scroll;
 &::-webkit-scrollbar{
   display: none;
