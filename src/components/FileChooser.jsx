@@ -48,7 +48,7 @@ function FileChooser({ image,dispatch }) {
   useEffect(() => {
       if (selectedImage !== null) {
     dispatch({ type:"user/image",payload:URL.createObjectURL(selectedImage)})
-    console.log(image);
+    
   }
   },[selectedImage])
 

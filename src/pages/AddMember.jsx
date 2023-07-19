@@ -6,6 +6,8 @@ import SelectBox from "../components/SelectBox";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useReducer, useState } from "react";
 import { add, update } from "../store/index.js";
+import { createPortal } from "react-dom";
+import Toast from "../components/Toast";
 const Wrapper = styled.div`
   background: linear-gradient(45deg, #131e3b, #152953);
   height: 100%;
@@ -56,6 +58,8 @@ function reducer(state, action) {
 }
 
 function AddMember() {
+  const [showToast, setShowToast] = useState(false);
+  const [taskMessage, setTaskMessage] = useState('');
   const [isEmpty, setIsEmpty] = useState(true);
   const currentUser = useSelector((state) => state.users.currentUser);
   
@@ -63,6 +67,8 @@ function AddMember() {
     { id, image, userName, userLastName, phone, related, email },
     dispatch,
   ] = useReducer(reducer, currentUser);
+
+  
   const storeDispatch = useDispatch();
 
   function handleOnSubmit(e) {
@@ -80,6 +86,7 @@ function AddMember() {
           email,
         })
       );
+      setTaskMessage("The member successfully updated")
     } else {
       storeDispatch(
         add({
@@ -92,9 +99,23 @@ function AddMember() {
           email,
         })
       );
+      setTaskMessage("The member successfully added")
     }
     dispatch({ type: "reset" });
+    setShowToast(true);
   }
+
+  useEffect(() => {
+    if (!showToast) return;
+
+    const id = setTimeout(() => {
+      setShowToast(false);
+    }, 3000);
+
+    return () => {
+      clearTimeout(id)
+    }
+  }, [showToast]);
 
   useEffect(() => {
     const result = [userName, userLastName, phone, email].some(
@@ -110,6 +131,7 @@ function AddMember() {
 
   return (
     <Wrapper>
+      {showToast && createPortal(<Toast message={taskMessage} />,document.body)}
       <Form onSubmit={handleOnSubmit}>
         <FileChooser dispatch={dispatch} image={image} />
         <Input
