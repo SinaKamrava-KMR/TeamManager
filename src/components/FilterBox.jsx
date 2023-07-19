@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { styled } from "styled-components";
+import { setFilter } from "../store";
 
 const Wrapper = styled.div`
   max-width: 360px;
@@ -35,23 +37,25 @@ const Roll = styled.div`
 `;
 
 function FilterBox() {
+  const storeDispatch = useDispatch()
   const [position,setPosition] = useState(1)
-  function handleClick(v) {
-      setPosition(v)
+  function handleClick(item,v) {
+    setPosition(v)
+    storeDispatch(setFilter(item))
   }
 
   return (
     <Wrapper>
       <Roll left={position}></Roll>
-      <Item onClick={()=>handleClick(1)}>
+      <Item onClick={()=>handleClick('all',1)}>
         <i className="bi bi-check-all"></i>
         <p>All</p>
       </Item>
-      <Item  onClick={()=>handleClick(33)}>
+      <Item  onClick={()=>handleClick('family',33)}>
         <i className="bi bi-people-fill"></i>
         <p>Family</p>
       </Item>
-      <Item  onClick={()=>handleClick(63.5)}>
+      <Item  onClick={()=>handleClick('coworker',63.5)}>
         <i className="bi bi-building-check"></i>
         <p>coworker</p>
       </Item>

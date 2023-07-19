@@ -2,6 +2,9 @@ import React from "react";
 import { styled } from "styled-components";
 import Header from "../components/Header";
 import MemberWrapper from "../components/MemberWrapper";
+import { initUsers } from "../store/index.js";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,7 +14,7 @@ const Wrapper = styled.div`
   height: 100%;
   min-height: 400px;
   overflow-y: scroll;
-  /* border-radius: 10px; */
+
   &::-webkit-scrollbar {
     display: none;
   }
@@ -21,6 +24,13 @@ const Wrapper = styled.div`
 `;
 
 function Main() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const data = localStorage.getItem("users") || "[]";
+    const users = JSON.parse(data);
+    dispatch(initUsers(users));
+  }, []);
+
   return (
     <Wrapper>
       <Header />
